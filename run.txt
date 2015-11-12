@@ -1,0 +1,5 @@
+pattern found at index0
+pattern found at index9
+pattern found at index13
+--- 6.103515625e-05 seconds ---
+--- 9.53674316406e-07 seconds ---
