@@ -4,51 +4,51 @@ def main():
     Y = "GXTXAYB"
     m = len(X)
     n = len(Y)
-    print lcs(X,Y)
+    print lcss_algorithm(X,Y)
 
-def lcs(X,Y):
-    m = len(X)
-    n = len(Y)
-    counter = [[0]*(n+1) for x in range(m+1)]
-    #printMatrix(counter)
-    l = [[0]*(n+1) for i in range(m+1)]
-    #printMatrix(l)
-    print_matrix(l,m,n)
-    for i in range(0,m+1):
-        for j in range(0,n+1):
+def lcss_algorithm(text,pattern):
+    text_length = len(text)
+    pattern_length = len(pattern)
+    lcs_matrix = [[0]*(pattern_length+1) for i in range(text_length+1)]
+    print_matrix(lcs_matrix,text_length,pattern_length)
+    for i in range(0,text_length+1):
+        for j in range(0,pattern_length+1):
             if i==0 or j == 0:
-                l[i][j] = 0
-            elif X[i-1] == Y[j-1]:
-                l[i][j] = l[i-1][j-1] +1
+                lcs_matrix[i][j] = 0
+            elif text[i-1] == pattern[j-1]:
+                lcs_matrix[i][j] = lcs_matrix[i-1][j-1] +1
             else:
-                l[i][j] = max(l[i-1][j],l[i][j-1])
-    print_matrix(l,m,n)
-    index = l[m][n]
-    lcs= ['0']*index
-    i = m 
-    j = n
+                lcs_matrix[i][j] = max(lcs_matrix[i-1][j],lcs_matrix[i][j-1])
+    print_matrix(lcs_matrix,text_length,pattern_length)
+    sequence = get_longest_sequence(lcs_matrix,text,pattern)
+    return sequence
+
+def get_longest_sequence(matrix,text,pattern):
+    text_length = len(text)
+    pattern_length = len(pattern)
+    index = matrix[text_length][pattern_length]
+    sequence= ['0']*index
+    i = text_length
+    j = pattern_length
     while(i >0 and j>0):
-        if X[i-1] == Y[j-1]:
-            lcs[index-1] = X[i-1]
+        if text[i-1] == pattern[j-1]:
+            sequence[index-1] = text[i-1]
             i= i-1
             j = j-1
             index = index-1
-        elif l[i-1][j] > l[i][j-1]:
+        elif matrix[i-1][j] > matrix[i][j-1]:
             i = i-1
         else:
             j = j-1
-    return "".join(lcs)
+    return "".join(sequence)
 
-
-def print_matrix(m,r,c):
-    for i in range(0,r):
+def print_matrix(matrix,rows,cols):
+    for i in range(0,rows):
         sys.stdout.write("\n")
-        for j in range(0,c):
-            sys.stdout.write(str(m[i][j]))
+        for j in range(0,cols):
+            sys.stdout.write(str(matrix[i][j]))
             sys.stdout.write('\t')
 
     sys.stdout.write('\n')
-
-
 
 main()
