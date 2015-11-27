@@ -16,7 +16,6 @@
 
 <!-- Latest compiled and minified JavaScript -->
 <script src="/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
-
 <script>
 
 function highlight(text)
@@ -31,6 +30,39 @@ function highlight(text)
     }
 
 }
+
+
+$(document).ready(function() {
+         
+           $("#uploadform").submit(function(event) {
+                      event.preventDefault();
+                     var data = new FormData(this);
+                     console.log(data);
+                   $.ajax({
+                       type        : "POST",
+                       url         : "/",
+                       data        : data,
+                       contentType : false,
+                       processData : false
+                       }).done(function (data) {
+                            console.log(data);
+                       });
+            });
+
+           $("#addfiles").click(function(){
+            var num = $("#fileuploads input").length;
+            num =  parseInt(num)
+            var html_string = $("#fileuploads").html()
+            for (i = num+1 ; i <= num+2 ; i++) {
+                n = i.toString();
+                html_string+= "<br><input type='file' class='form-control' name='file"+n+"'>";
+                console.log(html_string);
+            }            
+                $("#fileuploads").html(html_string);
+           });
+
+});
+
 </script>
 
 <button onclick="highlight('fox')">Highlight</button>
@@ -45,15 +77,15 @@ background-color:yellow;
 <div id="inputText">
 The fox went over the fence
 </div>
-<div class="bs-example">
-    <form action="">
-        <div class="form-group">
+ <button class="btn" id="addfiles"> Upload more files </button>
+
+    <form method="post" id="uploadform">
             <label for="inputPassword">Upload</label>
-            <input type="file" class="form-control" id="inputPassword" placeholder="Password">
-        </div>
+            <div id="fileuploads">
+            <input type="file" class="form-control" id="uploadfile" name="file1">
+            </div>
         <button type="submit" class="btn btn-primary">Upload</button>
     </form>
-</div>
 
 
 
