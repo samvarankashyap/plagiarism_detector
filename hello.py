@@ -3,11 +3,6 @@ from flask import render_template
 from flask import Flask, request, send_from_directory
 app = Flask(__name__,static_url_path='/static')
 
-@app.route('/hello/')
-@app.route('/hello/<name>')
-def hello(name=None):
-    return render_template('hello.html', name=name)
-
 
 @app.route('/js/<path:path>')
 def send_js(path):
@@ -19,8 +14,7 @@ def send_css(path):
 
 @app.route('/')
 def index():
-    return 'Index Page'
-
+    return render_template('index.html')
 
 @app.route('/user/<username>')
 def show_user_profile(username):
