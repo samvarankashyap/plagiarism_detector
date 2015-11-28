@@ -1,6 +1,6 @@
 import string_algos
 from string_algos import NaiveSearch
-text ="AGTAdasdasdasdadBdsadasdsadasdasdssadad"
+text ="AGTA"
 pattern = "das"
  
 l = NaiveSearch.NaiveSearch(text,pattern)

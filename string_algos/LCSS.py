@@ -21,7 +21,12 @@ class LCSS:
                    lcs_matrix[i][j] = max(lcs_matrix[i-1][j],lcs_matrix[i][j-1])
        #self.print_matrix(lcs_matrix,text_length,pattern_length)
        sequence = self.get_seq_from_matrix(lcs_matrix,text,pattern)
-       return sequence
+       output_dict = {}
+       output_dict['text']=self.text
+       output_dict['pattern']= self.pattern
+       output_dict['sequence']= sequence
+       output_dict['lcs_matrix'] = lcs_matrix 
+       return output_dict
 
    def get_seq_from_matrix(self,matrix,text,pattern):
        text_length = len(text)

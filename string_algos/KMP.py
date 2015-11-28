@@ -32,7 +32,11 @@ class KMP:
                   j = lps[j-1]
               else:
                   i+=1
-      return positions
+      output_dict = {}
+      output_dict['text']=self.text
+      output_dict['pattern']= self.pattern
+      output_dict['positions']= positions 
+      return output_dict
    def computeLPSArray(self,pat, M, lps):
        len = 0 # length of the previous longest prefix suffix
        lps[0] # lps[0] is always 0
