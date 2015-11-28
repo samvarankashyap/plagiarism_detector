@@ -4,7 +4,7 @@ class LCSS:
       self.text = text
       self.pattern = pattern
 
-   def search_sequence(self):
+   def search_pattern(self):
        text = self.text
        pattern = self.pattern
        text_length = len(text)
