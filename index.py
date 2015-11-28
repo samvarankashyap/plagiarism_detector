@@ -8,7 +8,7 @@ from flask import Flask, Response
 from flask import render_template
 from flask import Flask, request, send_from_directory
 from flask import jsonify
-
+from middleware import plagiot
 UPLOAD_FOLDER = './uploads'
 ALLOWED_EXTENSIONS = set(['txt'])
 
@@ -56,6 +56,7 @@ def plag_check():
         post_obj = request.form.keys()[0]
         post_obj = json.loads(post_obj)
         print post_obj
+        o_obj = plagiot(post_obj)
         return str(post_obj)
 
 
