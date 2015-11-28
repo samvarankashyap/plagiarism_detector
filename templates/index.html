@@ -87,19 +87,38 @@ $(document).ready(function() {
 
 		$(this).addClass('current');
 		$("#"+tab_id).addClass('current');
-	});
+	   });
+           $("#patterncheck").click(function(){
+                 var post_obj = {};
+                 post_obj['patterntext'] = $("#patterntext").val()
+                 post_obj['patternalgorithm'] = $("#patternalgorithm").val()
+                 post_obj['actualtext'] = $("#actualtext").val()
+                 
+                 post_obj = JSON.stringify(post_obj);
+                 console.log(post_obj);
+                 $.ajax({
+                     url: '/patterncheck',
+                     type: 'post',
+                     data: post_obj,
+                     dataType: 'text',
+                     success: function (data) {
+                      console.log("success response is");
+                      console.log(data);
+                     },
+                });
+           });
 
 });
 
 </script>
 <style>
-body{
+               body{
 			margin-top: 100px;
 			font-family: 'Trebuchet MS', serif;
 			line-height: 1.6
 		}
 		.container{
-			width: 100%;
+			width: 90%;
 			margin: 0 auto;
 		}
 
@@ -136,46 +155,8 @@ body{
 </style>
 </head>
 <body>
-<h1>Welcome to Plagio</h1>
-<div class="container-fluid">
-	<div class="row">
-		<div class="col-md-12">
-			<div class="row">
-				<div class="col-md-5">
-					<h3>
-						Select the file for Pattern
-					</h3>
-                                        <select class="form-control" id="patternfiles">
-                                        </select>
-				</div>
-				<div class="col-md-2" >
-					<h3>
-						Select the Algorithm
-					</h3>
-                                        <select class="form-control" id="algorithm">
-                                            <option value="nss">Naive String Search</option>
-                                            <option value="lcss">LCSS</option>
-                                            <option value="kmp">KMP</option>
-                                            <option value="bm">Boyer Moore</option>
-                                        </select>
-
-				</div>
-				<div class="col-md-5">
-					<h3>
-						Select the Corpus files
-					</h3>
-                                         <select multiple class="form-control" id="corpusfiles">
-                                        </select>
-
-				</div>
-                                 <button class="btn btn-primary" id="plagcheck">Check for Plagirism</button> 
-			</div>
-		</div>
-	</div>
-</div>
-
+<h1 align="center">Welcome to Plagio</h1>
 <!-- Jquery tabs  -->
-
 
 <div class="container">
 
@@ -186,43 +167,98 @@ body{
 	</ul>
 
 	<div id="tab-1" class="tab-content current">
-
-
-        <button class="btn" id="addfiles"> Upload more files </button>
-    <form method="post" id="uploadform">
-            <label for="inputPassword">Upload</label>
-            <div id="fileuploads">
-            <input type="file" class="form-control" id="uploadfile" name="file1">
-            </div>
-        <button type="submit" class="btn btn-primary">Upload</button>
-    </form>
-
-        
-
-
+            <button class="btn" id="addfiles"> Upload more files </button>
+            <form method="post" id="uploadform">
+                <label for="inputPassword">Upload</label>
+                <div id="fileuploads">
+                    <input type="file" class="form-control" id="uploadfile" name="file1">
+                </div>
+                <br>
+                <button type="submit" class="btn btn-primary">Upload</button>
+            </form>
 	</div>
 	<div id="tab-2" class="tab-content">
    
+<div class="container-fluid">
+        <div class="row">
+                <div class="col-md-12">
+                        <div class="row">
+                                <div class="col-md-5">
+                                        <h3>
+                                                Select the file for Pattern
+                                        </h3>
+                                        <select class="form-control" id="patternfiles">
+                                        </select>
+                                </div>
+                                <div class="col-md-2" >
+                                        <h3>
+                                                Select the Algorithm
+                                        </h3>
+                                        <select class="form-control" id="algorithm">
+                                            <option value="nss">Naive String Search</option>
+                                            <option value="lcss">LCSS</option>
+                                            <option value="kmp">KMP</option>
+                                            <option value="bm">Boyer Moore</option>
+                                        </select>
 
+                                </div>
+                                <div class="col-md-5">
+                                        <h3>
+                                                Select the Corpus files
+                                        </h3>
+                                         <select multiple class="form-control" id="corpusfiles">
+                                        </select>
 
-
-
-
-
-
-
+                                </div>
+                                <br>
+                                 <button class="btn btn-primary" id="plagcheck">Check for Plagirism</button>
+                        </div>
+                </div>
+        </div>
+</div>
 
 
 	</div>
 	<div id="tab-3" class="tab-content">
-	</div>
-	<div id="tab-4" class="tab-content">
+
+<div class="container-fluid">
+        <div class="row">
+                <div class="col-md-12">
+                        <div class="row">
+                                <div class="col-md-5">
+                                        <h3>
+                                                Enter a Pattern
+                                        </h3>
+                                         <input type="email" class="form-control" id="patterntext">
+                                </div>
+                                <div class="col-md-2" >
+                                        <h3>
+                                                Select the Algorithm
+                                        </h3>
+                                        <select class="form-control" id="patternalgorithm">
+                                            <option value="nss">Naive String Search</option>
+                                            <option value="lcss">LCSS</option>
+                                            <option value="kmp">KMP</option>
+                                            <option value="bm">Boyer Moore</option>
+                                        </select>
+
+                                </div>
+                                <div class="col-md-5">
+                                        <h3>
+                                                Enter a Text
+                                        </h3>
+                                         <input type="email" class="form-control" id="actualtext">
+
+                                </div>
+                        </div>
+                        <button class="btn btn-primary" id="patterncheck">Search Pattern</button>
+                </div>
+        </div>
+</div>
 	</div>
 
 </div>
 <!-- container -->
-
-
 
 <body>
 </html>
