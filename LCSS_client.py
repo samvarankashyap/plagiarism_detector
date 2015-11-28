@@ -4,4 +4,4 @@ text ="AGGTAB"
 pattern = "GXTXAYB"
  
 l = LCSS.LCSS(text,pattern)
-print l.search_sequence()
+print l.search_pattern()
