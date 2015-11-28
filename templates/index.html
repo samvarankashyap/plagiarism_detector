@@ -1,4 +1,5 @@
 <!doctype html>
+<head>
 <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon"> 
 <title>Plagio</title>
  <h1>Welcome to Plagio</h1>
@@ -78,14 +79,66 @@ $(document).ready(function() {
                      },
                 });
            }); 
-                  
+           
+           $('ul.tabs li').click(function(){
+		var tab_id = $(this).attr('data-tab');
 
+		$('ul.tabs li').removeClass('current');
+		$('.tab-content').removeClass('current');
 
+		$(this).addClass('current');
+		$("#"+tab_id).addClass('current');
+	});
 
 });
 
 </script>
- <button class="btn" id="addfiles"> Upload more files </button>
+<style>
+body{
+			margin-top: 100px;
+			font-family: 'Trebuchet MS', serif;
+			line-height: 1.6
+		}
+		.container{
+			width: 100%;
+			margin: 0 auto;
+		}
+
+
+
+		ul.tabs{
+			margin: 0px;
+			padding: 0px;
+			list-style: none;
+		}
+		ul.tabs li{
+			background: none;
+			color: #222;
+			display: inline-block;
+			padding: 10px 15px;
+			cursor: pointer;
+		}
+
+		ul.tabs li.current{
+			background: #ededed;
+			color: #222;
+		}
+
+		.tab-content{
+			display: none;
+			background: #ededed;
+			padding: 15px;
+		}
+
+		.tab-content.current{
+			display: inherit;
+		}
+
+</style>
+</head>
+<body>
+<h1>Welcome to Plagio</h1>
+<button class="btn" id="addfiles"> Upload more files </button>
 
     <form method="post" id="uploadform">
             <label for="inputPassword">Upload</label>
@@ -131,7 +184,37 @@ $(document).ready(function() {
 	</div>
 </div>
 
+<!-- Jquery tabs  -->
 
+
+<div class="container">
+
+	<ul class="tabs">
+		<li class="tab-link current" data-tab="tab-1">Tab One</li>
+		<li class="tab-link" data-tab="tab-2">Tab Two</li>
+		<li class="tab-link" data-tab="tab-3">Tab Three</li>
+		<li class="tab-link" data-tab="tab-4">Tab Four</li>
+	</ul>
+
+	<div id="tab-1" class="tab-content current">
+        
+
+
+	</div>
+	<div id="tab-2" class="tab-content">
+	</div>
+	<div id="tab-3" class="tab-content">
+	</div>
+	<div id="tab-4" class="tab-content">
+	</div>
+
+</div>
+<!-- container -->
+
+
+
+<body>
+</html>
 
 
 
