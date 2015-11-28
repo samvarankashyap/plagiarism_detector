@@ -2,7 +2,6 @@
 <head>
 <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon"> 
 <title>Plagio</title>
- <h1>Welcome to Plagio</h1>
 <script src="/js/jquery.js"></script>
 
 <!-- Latest compiled and minified CSS -->
@@ -138,15 +137,6 @@ body{
 </head>
 <body>
 <h1>Welcome to Plagio</h1>
-<button class="btn" id="addfiles"> Upload more files </button>
-
-    <form method="post" id="uploadform">
-            <label for="inputPassword">Upload</label>
-            <div id="fileuploads">
-            <input type="file" class="form-control" id="uploadfile" name="file1">
-            </div>
-        <button type="submit" class="btn btn-primary">Upload</button>
-    </form>
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-12">
@@ -190,18 +180,39 @@ body{
 <div class="container">
 
 	<ul class="tabs">
-		<li class="tab-link current" data-tab="tab-1">Tab One</li>
-		<li class="tab-link" data-tab="tab-2">Tab Two</li>
-		<li class="tab-link" data-tab="tab-3">Tab Three</li>
-		<li class="tab-link" data-tab="tab-4">Tab Four</li>
+		<li class="tab-link current" data-tab="tab-1">Upload files Tab</li>
+		<li class="tab-link" data-tab="tab-2">Plag Check on Files</li>
+		<li class="tab-link" data-tab="tab-3">Pattern Match on Text</li>
 	</ul>
 
 	<div id="tab-1" class="tab-content current">
+
+
+        <button class="btn" id="addfiles"> Upload more files </button>
+    <form method="post" id="uploadform">
+            <label for="inputPassword">Upload</label>
+            <div id="fileuploads">
+            <input type="file" class="form-control" id="uploadfile" name="file1">
+            </div>
+        <button type="submit" class="btn btn-primary">Upload</button>
+    </form>
+
         
 
 
 	</div>
 	<div id="tab-2" class="tab-content">
+   
+
+
+
+
+
+
+
+
+
+
 	</div>
 	<div id="tab-3" class="tab-content">
 	</div>
