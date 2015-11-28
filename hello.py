@@ -1,12 +1,13 @@
 import os
+import json
 from os import listdir
 from os.path import isfile, join
 from flask import redirect, url_for
 from werkzeug import secure_filename
-from flask import Flask
+from flask import Flask, Response
 from flask import render_template
 from flask import Flask, request, send_from_directory
-
+from flask import jsonify
 
 UPLOAD_FOLDER = './uploads'
 ALLOWED_EXTENSIONS = set(['txt'])
@@ -40,6 +41,23 @@ def upload_file():
 @app.route('/css/<path:path>')
 def send_css(path):
     return send_from_directory('./static/css', path)
+
+@app.route('/getfiles',methods=['GET'])
+def get_files():
+    files = os.listdir(UPLOAD_FOLDER)
+    print files
+    dat = json.dumps(files)
+    resp = Response(response=dat,status=200, mimetype="application/json")
+    return resp
+
+@app.route('/plagcheck',methods=['POST'])
+def plag_check():
+    if request.method == 'POST':
+        post_obj = request.form.keys()[0]
+        post_obj = json.loads(post_obj)
+        print post_obj
+        return str(post_obj)
+
 
 if __name__ == '__main__':
     app.debug = True

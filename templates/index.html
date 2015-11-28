@@ -1,11 +1,7 @@
 <!doctype html>
 <link rel="shortcut icon" href="data:image/x-icon;," type="image/x-icon"> 
-<title>Hello from Flask</title>
-{% if name %}
-  <h1>Hello {{ name }}!</h1>
-{% else %}
-  <h1>Hello World!</h1>
-{% endif %}
+<title>Plagio</title>
+ <h1>Welcome to Plagio</h1>
 <script src="/js/jquery.js"></script>
 
 <!-- Latest compiled and minified CSS -->
@@ -17,19 +13,6 @@
 <!-- Latest compiled and minified JavaScript -->
 <script src="/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
 <script>
-
-function highlight(text)
-{
-    inputText = document.getElementById("inputText")
-    var innerHTML = inputText.innerHTML
-    var index = innerHTML.indexOf(text);
-    if ( index >= 0 )
-    { 
-        innerHTML = innerHTML.substring(0,index) + "<span class='highlight'>" + innerHTML.substring(index,index+text.length) + "</span>" + innerHTML.substring(index + text.length);
-        inputText.innerHTML = innerHTML 
-    }
-
-}
 
 
 $(document).ready(function() {
@@ -56,10 +39,48 @@ $(document).ready(function() {
             for (i = num+1 ; i <= num+2 ; i++) {
                 n = i.toString();
                 html_string+= "<br><input type='file' class='form-control' name='file"+n+"'>";
-                console.log(html_string);
             }            
                 $("#fileuploads").html(html_string);
            });
+
+           // for populating initial data
+           $.get( "/getfiles", function( data ) {
+                 console.log(data);
+                 var html_string ="";
+                 if (data.length !=0){
+                 for (filename in data){
+                 html_string += "<option value='"+data[filename]+"'>"+data[filename]+"</option>"
+                   }
+                  $("#corpusfiles").html(html_string);
+                  $("#patternfiles").html(html_string);
+                 }
+            });
+           $("#plagcheck").click(function(){
+                 var post_obj = {};
+                 post_obj["pattern_files"] = $("#patternfiles").val();
+                 corpus_files = $("#corpusfiles").val();
+                 c_files = {}
+                 for (file in corpus_files ){
+                     c_files[file] = corpus_files[file];
+                 }
+                 post_obj['corpus_files'] = c_files;
+                 post_obj["algorithm"] = $("#algorithm").val();
+                 console.log(post_obj);
+                 post_obj = JSON.stringify(post_obj);
+                 console.log(post_obj);
+                 $.ajax({
+                     url: '/plagcheck',
+                     type: 'post',
+                     data: post_obj,
+                     dataType: 'text',
+                     success: function (data) {
+                      console.log("success");
+                     },
+                });
+           }); 
+                  
+
+
 
 });
 
@@ -74,9 +95,6 @@ background-color:yellow;
 }
 </style>
 
-<div id="inputText">
-The fox went over the fence
-</div>
  <button class="btn" id="addfiles"> Upload more files </button>
 
     <form method="post" id="uploadform">
@@ -86,7 +104,42 @@ The fox went over the fence
             </div>
         <button type="submit" class="btn btn-primary">Upload</button>
     </form>
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+			<div class="row">
+				<div class="col-md-5">
+					<h3>
+						Select the file for Pattern
+					</h3>
+                                        <select class="form-control" id="patternfiles">
+                                        </select>
+				</div>
+				<div class="col-md-2" >
+					<h3>
+						Select the Algorithm
+					</h3>
+                                        <select class="form-control" id="algorithm">
+                                            <option value="nss">Naive String Search</option>
+                                            <option value="lcss">LCSS</option>
+                                            <option value="kmp">KMP</option>
+                                            <option value="bm">Boyer Moore</option>
+                                        </select>
 
+				</div>
+				<div class="col-md-5">
+					<h3>
+						Select the Corpus files
+					</h3>
+                                         <select multiple class="form-control" id="corpusfiles">
+                                        </select>
+
+				</div>
+                                 <button class="btn btn-primary" id="plagcheck">Check for Plagirism</button> 
+			</div>
+		</div>
+	</div>
+</div>
 
 
 
