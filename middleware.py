@@ -2,7 +2,9 @@ import time
 from string_algos import NaiveSearch
 from string_algos import KMP
 from string_algos import LCSS
+from string_algos import BoyerMore
 from timeit import default_timer as timer
+
 def plagiot(post_obj):
     print "inside plag_check"
     c_files = post_obj['corpus_files']
@@ -33,8 +35,6 @@ def plagarism_check(corpus,algo,pfile):
     p_fd = open("./uploads/"+pfile)
     c = 1
     for key in corpus:
-        #import pdb
-        #pdb.set_trace()
         f = open("./uploads/"+corpus[key])
         totaltext = f.read()
         for line in p_fd:
@@ -43,7 +43,6 @@ def plagarism_check(corpus,algo,pfile):
             obj[c]=o_obj
             c = c+1
     return obj
-            
 
 def get_algo(p_algo,text,pattern):
     if p_algo == 'nss':
@@ -53,4 +52,4 @@ def get_algo(p_algo,text,pattern):
     elif p_algo == 'lcss':
         return  LCSS.LCSS(text,pattern) 
     elif p_algo == 'bm':
-        return "not implemented" 
+        return BoyerMore.BoyerMore(text,pattern) 
