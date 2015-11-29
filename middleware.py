@@ -11,7 +11,8 @@ def plagiot(post_obj):
     algo = post_obj['algorithm']
     p_file = post_obj['pattern_files']
     print post_obj
-    output_obj = plagarism_check(c_files,algo,p_file)
+    #output_obj = plagarism_check(c_files,algo,p_file)
+    output_obj = plagarism_check2(c_files,algo,p_file)
     return output_obj
 
 def pattern_check(post_obj):
@@ -42,6 +43,27 @@ def plagarism_check(corpus,algo,pfile):
             o_obj = algo_obj.search_pattern()
             obj[c]=o_obj
             c = c+1
+    return obj
+
+def plagarism_check2(corpus,algo,pfile):
+    obj = {}
+    # obj {line : [ {filename , line no , positions , text , pattern } , ... }
+    p_fd = open("./uploads/"+pfile)
+    p_counter = 1
+    for p_line in p_fd:
+        obj[p_counter] = []
+        for key in corpus:
+            t_file = open("./uploads/"+corpus[key])
+            t_counter = 1
+            for t_line in t_file:
+                algo_obj = get_algo(algo,t_line,p_line)
+                o_obj = algo_obj.search_pattern()
+                if len(o_obj["positions"]) > 0 or len(o_obj["sequence"]) > 0:
+                    o_obj["line"] = t_counter
+                    o_obj["filename"] = corpus[key]
+                    obj[p_counter].append(o_obj)
+                t_counter += 1
+        p_counter += 1    
     return obj
 
 def get_algo(p_algo,text,pattern):
