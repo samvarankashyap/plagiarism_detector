@@ -57,7 +57,7 @@ def plag_check():
         post_obj = json.loads(post_obj)
         print post_obj
         o_obj = plagiot(post_obj)
-        return str(o_obj)
+        return json.dumps(o_obj)
 
 @app.route('/patterncheck',methods=['POST'])
 def patterncheck():
@@ -66,7 +66,7 @@ def patterncheck():
         post_obj = json.loads(post_obj)
         print post_obj
         o_obj = pattern_check(post_obj)
-        return str(o_obj)
+        return json.dumps(o_obj)
 
 
 if __name__ == '__main__':

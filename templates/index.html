@@ -75,6 +75,7 @@ $(document).ready(function() {
                      dataType: 'text',
                      success: function (data) {
                       console.log("success");
+                      console.log(data);
                      },
                 });
            }); 
@@ -104,6 +105,9 @@ $(document).ready(function() {
                      success: function (data) {
                       console.log("success response is");
                       console.log(data);
+                      var jsonPretty = JSON.stringify(JSON.parse(data),null,2);  
+                      $("#patterncheckoutput").html(jsonPretty);
+                       
                      },
                 });
            });
@@ -252,6 +256,8 @@ $(document).ready(function() {
                                 </div>
                         </div>
                         <button class="btn btn-primary" id="patterncheck">Search Pattern</button>
+                        <div class="row" id="patterncheckoutput">
+                        </div>
                 </div>
         </div>
 </div>
