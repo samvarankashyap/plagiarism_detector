@@ -4,56 +4,35 @@ class KMP:
       self.text = text
       self.pattern = pattern
    def search_pattern(self):
-      M = len(self.pattern)
-      N = len(self.text)
-      positions = []
-      pat = self.pattern
-      txt = self.text
-      # create lps[] that will hold the longest prefix suffix
-      # values for pattern
-      lps = [0]*M
-      j = 0 # index for pat[]
-      # Preprocess the pattern (calculate lps[] array)
-      lps = self.computeLPSArray(self.pattern, M, lps)
-      i = 0 # index for txt[]
-      while i < N:
-          if pat[j] == txt[i]:
-              i+=1
-              j+=1
-          if j==M:
-              print "Found pattern at index " + str(i-j)
-              positions.append(i-j)
-              j = lps[j-1]
-          # mismatch after j matches
-          elif i < N and pat[j] != txt[i]:
-              # Do not match lps[0..lps[j-1]] characters,
-              # they will match anyway
-              if j != 0:
-                  j = lps[j-1]
-              else:
-                  i+=1
+      n=len(self.text)
+      m=len(self.pattern)
+      sText=" "+self.text
+      spattern=" "+self.pattern
+      prefixTable= self.generatePrefixTable(spattern)
+      q=0
+      hits =[]
+      for i in range(1,n+1):
+          while(q>0 and spattern[q+1] != sText[i]):
+              q = prefixTable[q]
+          if(spattern[q+1]==sText[i]):
+              q=q+1
+          if(q==m):
+              hits.append(str(i-m))
+              q=prefixTable[q]
       output_dict = {}
       output_dict['text']=self.text
       output_dict['pattern']= self.pattern
-      output_dict['positions']= positions 
+      output_dict['positions']= hits
       return output_dict
-   def computeLPSArray(self,pat, M, lps):
-       len = 0 # length of the previous longest prefix suffix
-       lps[0] # lps[0] is always 0
-       i = 1
-       # the loop calculates lps[i] for i = 1 to M-1
-       while i < M:
-           if pat[i]==pat[len]:
-               len+=1
-               lps[i] = len
-               i+=1
-           else:
-               if len!=0:
-                    # This is tricky. Consier the example AAACAAAA
-                    # and i = 7
-                   len = lps[len-1]
-                    # Also, note that we do not increment i here
-               else:
-                   lps[i] = 0
-                   i+=1
-       return lps
+   def generatePrefixTable(self,pattern):
+       pstring=pattern
+       i=0
+       pref ={}
+       pref[1]=0
+       for j in range(2,len(pstring)):
+           while(i>0 and pstring[i+1] != pstring[j]):
+               i=pref[i]
+           if pstring[i+1] == pstring[j]:
+               i=i+1
+           pref[j]=i
+       return pref
