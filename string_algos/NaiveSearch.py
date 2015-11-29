@@ -13,7 +13,11 @@ class NaiveSearch:
        output_dict['positions']= []
        
        for i in range(0,len_of_text):
-           if  self.text[i:i+len_of_pattern] == self.pattern:
+           new_string = self.get_substring(self.text,i,len_of_pattern)
+           if  new_string == self.pattern:
                output_dict["positions"].append(i)
        return output_dict
+
+   def get_substring(self,text,start,offset):
+       return text[start:start+offset]
       
