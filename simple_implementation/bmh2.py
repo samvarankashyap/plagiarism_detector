@@ -1,17 +1,11 @@
 def BoyerMooreHorspool(pattern, text):
     m = len(pattern)
     n = len(text)
-    k = 256
-    skip = [m]*k
-    # initialise the considering all the ascii 256
-    #for k in range(256): skip.append(m)
-    print skip
-    print len(skip)
-    # loop until second last letter initailise with length of pattern
-    for letter in pattern[0:m-2]:
-        ascii_val = ord(letter)
-        skip[ascii_val]= m - k - 1
-    print skip
+    if m > n: return -1
+    skip = []
+    for k in range(256): skip.append(m)
+    for k in range(m - 1): skip[ord(pattern[k])] = m - k - 1
+    skip = tuple(skip)
     k = m - 1
     while k < n:
         j = m - 1; i = k
@@ -22,12 +16,10 @@ def BoyerMooreHorspool(pattern, text):
     return -1
 
 if __name__ == '__main__':
-    text = "thhethethethethe"
+    text = "this tthe is the string to search in"
     pattern = "the"
     s = BoyerMooreHorspool(pattern, text)
     print 'Text:',text
     print 'Pattern:',pattern
-    print s
     if s > -1:
         print 'Pattern \"' + pattern + '\" found at position',s
-

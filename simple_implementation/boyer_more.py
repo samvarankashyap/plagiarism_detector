@@ -1,7 +1,7 @@
 pattern = "tooth"
-text = "toothtrutoohsthardtothbrushtoohtoothes"
+text = "toothtrutoohsthardtothbrushtoothtoothes"
 text = "abcdefgfhijlmnom"
-text = "tiitottoootttottotooth"
+text = "tiitottoothotttottotooth"
 def get_bad_match_table(text):
     bad_match = {}
     length = len(text)
@@ -44,7 +44,9 @@ def search_pattern(text,pattern):
         if match_counter == pattern_length:
             print "pattern found at"
             print i+1
-            break
+            i = i+1
+            k = k+1
+            #break
 print text
 print pattern
 search_pattern(text,pattern)

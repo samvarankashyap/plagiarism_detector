@@ -28,6 +28,7 @@ class BoyerMore:
       output_dict['text']=self.text
       output_dict['pattern']= self.pattern
       output_dict['positions']= hits
+      output_dict['sequence']= ""
       return output_dict
    def generateBadMatchTab(self,pattern):
        badMList = {}

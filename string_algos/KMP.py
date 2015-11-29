@@ -20,9 +20,10 @@ class KMP:
               hits.append(str(i-m))
               q=prefixTable[q]
       output_dict = {}
-      output_dict['text']=self.text
-      output_dict['pattern']= self.pattern
-      output_dict['positions']= hits
+      output_dict["sequence"] = ""
+      output_dict['text'] = self.text
+      output_dict['pattern'] = self.pattern
+      output_dict['positions'] = hits
       return output_dict
    def generatePrefixTable(self,pattern):
        pstring=pattern

@@ -11,6 +11,7 @@ class NaiveSearch:
        output_dict['text']=self.text
        output_dict['pattern']= self.pattern
        output_dict['positions']= []
+       output_dict['sequence']= ""
        
        for i in range(0,len_of_text):
            new_string = self.get_substring(self.text,i,len_of_pattern)
