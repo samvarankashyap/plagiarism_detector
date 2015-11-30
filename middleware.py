@@ -17,8 +17,6 @@ def plagiot(post_obj):
 
 def pattern_check(post_obj):
     output_obj= post_obj
-    print "inside the pattern check"
-    print "processing the pattern match algorithm"
     p_text = post_obj['patterntext']
     p_algo = post_obj['patternalgorithm']
     a_text = post_obj['actualtext']
@@ -28,7 +26,10 @@ def pattern_check(post_obj):
     end_time = timer()
     execution_time = end_time - start_time
     output_obj['execution_time']=execution_time
-    print output_obj
+    output_obj['patterntext']=p_text
+    output_obj['algorithm']=p_algo
+    output_obj['actualtext']=a_text
+    #print output_obj
     return output_obj
 
 def plagarism_check(corpus,algo,pfile):
