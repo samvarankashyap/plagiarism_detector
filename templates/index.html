@@ -78,7 +78,7 @@ $(document).ready(function() {
                       //console.log(data);
                       //$("#plagcheckoutput").html(data);
                       var json_data = JSON.parse(data);
-                      //$("#plagchecktime").html(json_data['execution_time']);
+                      $("#plagchecktime").html(json_data['execution_time']);
                       html_string ="";
                       for (key in json_data){
                       if (key=="execution_time" || key=="algorithm"){
