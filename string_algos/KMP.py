@@ -17,7 +17,7 @@ class KMP:
           if(spattern[q+1]==sText[i]):
               q=q+1
           if(q==m):
-              hits.append(str(i-m))
+              hits.append(i-m)
               q=prefixTable[q]
       output_dict = {}
       output_dict["sequence"] = ""

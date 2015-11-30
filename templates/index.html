@@ -76,10 +76,33 @@ $(document).ready(function() {
                      success: function (data) {
                       console.log("success");
                       console.log(data);
-                      $("#plagcheckoutput").html(data);
+                      //$("#plagcheckoutput").html(data);
                       var json_data = JSON.parse(data);
-                      $("#plagchecktime").html(json_data['execution_time']);
-                      
+                      //$("#plagchecktime").html(json_data['execution_time']);
+                      html_string ="";
+                      for (key in json_data){
+                      if (key=="execution_time" || key=="algorithm"){
+                          continue;
+                      }
+                      html_string+="<tr>";
+                      for (x in json_data[key]){
+                          console.log(json_data[key]);
+                      html_string += "<td>"+key+"</td>";
+                      html_string += "<td>"+json_data[key][x]['text']+"</td>";
+                      html_string += "<td>"+json_data[key][x]['pattern']+"</td>";
+                      html_string += "<td>"+json_data[key][x]['filename']+"</td>";
+                      html_string += "<td>"+json_data[key][x]['line']+"</td>";
+                      if (json_data['algorithm']=="lcss"){
+                      html_string += "<td>"+json_data[key][x]['sequence']+"</td>";
+                      }
+                      else{
+                      html_string += "<td>"+json_data[key][x]['positions']+"</td>";
+                      }
+                      html_string += "</tr>";
+                      }
+                         
+                     }
+                     $("#plagcheckoutput").html(html_string); 
                      },
                 });
            }); 
@@ -238,7 +261,7 @@ $(document).ready(function() {
                         <h2> Output </h2>
                          <h3>Execution Time In Seconds</h3>
                           <h3 id="plagchecktime"></h3>
-                        <div id="plagcheckoutput">
+                        <div >
                           <table class="table table-hover">
                             <thead>
                             <tr>
@@ -246,10 +269,11 @@ $(document).ready(function() {
                             <th>Text</th>
                             <th>Pattern</th>
                             <th>Corpus File name</th>
+                            <th>Line in corpus</th>
                             <th>Positions/Sequence</th>
                             </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="plagcheckoutput">
                             </tbody>
                           </table>
                         </div>

@@ -16,6 +16,7 @@ def plagiot(post_obj):
     output_obj = plagarism_check2(c_files,algo,p_file)
     end_time = timer()
     output_obj['execution_time'] = end_time - start_time
+    output_obj['algorithm'] = algo
     return output_obj
 
 def pattern_check(post_obj):
