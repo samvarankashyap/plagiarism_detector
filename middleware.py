@@ -6,11 +6,11 @@ from string_algos import BoyerMore
 from timeit import default_timer as timer
 
 def plagiot(post_obj):
-    print "inside plag_check"
+    #print "inside plag_check"
     c_files = post_obj['corpus_files']
     algo = post_obj['algorithm']
     p_file = post_obj['pattern_files']
-    print post_obj
+    #print post_obj
     #output_obj = plagarism_check(c_files,algo,p_file)
     start_time = timer()
     output_obj = plagarism_check2(c_files,algo,p_file)

@@ -24,8 +24,8 @@ class LCSS:
        output_dict = {}
        output_dict["positions"]=[]
        output_dict['sequence']= ""
-       #output_dict['text']=self.text
-       #output_dict['pattern']= self.pattern
+       output_dict['text']=self.text
+       output_dict['pattern']= self.pattern
        output_dict['sequence']= sequence
        #output_dict['lcs_matrix'] = lcs_matrix 
        return output_dict

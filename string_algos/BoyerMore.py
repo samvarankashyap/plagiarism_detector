@@ -34,6 +34,6 @@ class BoyerMore:
        badMList = {}
        for i in range(0, len(pattern)-1):
            badMList[pattern[i]] = len(pattern) - i - 1
-       print badMList
+       #print badMList
        return badMList
 
