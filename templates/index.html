@@ -20,7 +20,7 @@ $(document).ready(function() {
            $("#uploadform").submit(function(event) {
                       event.preventDefault();
                      var data = new FormData(this);
-                     console.log(data);
+                     //console.log(data);
                    $.ajax({
                        type        : "POST",
                        url         : "/",
@@ -28,7 +28,7 @@ $(document).ready(function() {
                        contentType : false,
                        processData : false
                        }).done(function (data) {
-                            console.log(data);
+                            //console.log(data);
                        });
             });
 
@@ -45,7 +45,7 @@ $(document).ready(function() {
 
            // for populating initial data
            $.get( "/getfiles", function( data ) {
-                 console.log(data);
+                 //console.log(data);
                  var html_string ="";
                  if (data.length !=0){
                  for (filename in data){
@@ -65,17 +65,17 @@ $(document).ready(function() {
                  }
                  post_obj['corpus_files'] = c_files;
                  post_obj["algorithm"] = $("#algorithm").val();
-                 console.log(post_obj);
+                 //console.log(post_obj);
                  post_obj = JSON.stringify(post_obj);
-                 console.log(post_obj);
+                 //console.log(post_obj);
                  $.ajax({
                      url: '/plagcheck',
                      type: 'post',
                      data: post_obj,
                      dataType: 'text',
                      success: function (data) {
-                      console.log("success");
-                      console.log(data);
+                      //console.log("success");
+                      //console.log(data);
                       //$("#plagcheckoutput").html(data);
                       var json_data = JSON.parse(data);
                       //$("#plagchecktime").html(json_data['execution_time']);
@@ -86,7 +86,7 @@ $(document).ready(function() {
                       }
                       html_string+="<tr>";
                       for (x in json_data[key]){
-                          console.log(json_data[key]);
+                          //console.log(json_data[key]);
                       html_string += "<td>"+key+"</td>";
                       html_string += "<td>"+json_data[key][x]['text']+"</td>";
                       html_string += "<td>"+json_data[key][x]['pattern']+"</td>";
@@ -123,17 +123,17 @@ $(document).ready(function() {
                  post_obj['actualtext'] = $("#actualtext").val()
                  
                  post_obj = JSON.stringify(post_obj);
-                 console.log(post_obj);
+                 //console.log(post_obj);
                  $.ajax({
                      url: '/patterncheck',
                      type: 'post',
                      data: post_obj,
                      dataType: 'text',
                      success: function (data) {
-                      console.log("success response is");
+                      //console.log("success response is");
                       //console.log(data);
                       var json_data = JSON.parse(data);
-                      console.log(json_data);
+                      //console.log(json_data);
                       //$("#patterncheckoutput").html(jsonPretty);
                       var html_string = "<tr>";
                       html_string += "<td>"+json_data['algorithm']+"</td>";
