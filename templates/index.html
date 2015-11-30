@@ -76,7 +76,8 @@ $(document).ready(function() {
                      success: function (data) {
                       console.log("success");
                       console.log(data);
-                      $("#plagcheckoutput").html(data);
+                      //$("#plagcheckoutput").html(data);
+                      var json_data = JSON.parse(data);
                      },
                 });
            }); 
@@ -105,9 +106,23 @@ $(document).ready(function() {
                      dataType: 'text',
                      success: function (data) {
                       console.log("success response is");
-                      console.log(data);
-                      var jsonPretty = JSON.stringify(JSON.parse(data),null,2);  
-                      $("#patterncheckoutput").html(jsonPretty);
+                      //console.log(data);
+                      var json_data = JSON.parse(data);
+                      console.log(json_data);
+                      //$("#patterncheckoutput").html(jsonPretty);
+                      var html_string = "<tr>";
+                      html_string += "<td>"+json_data['algorithm']+"</td>";
+                      html_string += "<td>"+json_data['execution_time']+"</td>";
+                      html_string += "<td>"+json_data['patterntext']+"</td>";
+                      html_string += "<td>"+json_data['actualtext']+"</td>";
+                      if (json_data['algorithm']=="lcss"){
+                      html_string += "<td>"+json_data['sequence']+"</td>";
+                      }
+                      else{
+                      html_string += "<td>"+json_data['positions'].toString()+"</td>";
+                      }
+                      html_string += "</tr>";
+                      $("#patterncheckoutput").html(html_string);
                        
                      },
                 });
@@ -218,8 +233,22 @@ $(document).ready(function() {
                                 <br>
                                  <button class="btn btn-primary" id="plagcheck">Check for Plagirism</button>
                         </div>
-                        <h6> Output </h6>
-                        <div id="plagcheckoutput"> </div>
+                        <h2> Output </h2>
+                        <div id="plagcheckoutput">
+                          <table class="table table-hover">
+                            <thead>
+                            <tr>
+                            <th>Line No</th>
+                            <th>Text</th>
+                            <th>Pattern</th>
+                            <th>Corpus File name</th>
+                            <th>Positions/Sequence</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                          </table>
+                        </div>
                 </div>
         </div>
 </div>
@@ -259,7 +288,20 @@ $(document).ready(function() {
                                 </div>
                         </div>
                         <button class="btn btn-primary" id="patterncheck">Search Pattern</button>
-                        <div class="row" id="patterncheckoutput">
+                        <div class="row">
+                          <table class="table table-hover">
+                               <thead>
+                                <tr>
+                                <th>Algorithm Name</th>
+                                <th>Execution Time </th>
+                                <th>Pattern</th>
+                                <th>Text</th>
+                                <th>Positions/Sequence</th>
+                                </tr>
+                               </thead>
+                               <tbody  id="patterncheckoutput">
+                            </tbody>
+                          </table>
                         </div>
                 </div>
         </div>
