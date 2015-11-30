@@ -78,6 +78,7 @@ $(document).ready(function() {
                       console.log(data);
                       //$("#plagcheckoutput").html(data);
                       var json_data = JSON.parse(data);
+                      $("#plagchecktime").html(json_data['execution_time']);
                      },
                 });
            }); 
@@ -235,6 +236,8 @@ $(document).ready(function() {
                         </div>
                         <h2> Output </h2>
                         <div id="plagcheckoutput">
+                          <h3>Execution Time In Seconds</h3>
+                          <h3 id="plagchecktime"></h3>
                           <table class="table table-hover">
                             <thead>
                             <tr>
@@ -252,8 +255,6 @@ $(document).ready(function() {
                 </div>
         </div>
 </div>
-
-
 	</div>
 	<div id="tab-3" class="tab-content">
 
