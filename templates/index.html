@@ -88,8 +88,8 @@ $(document).ready(function() {
                       for (x in json_data[key]){
                           //console.log(json_data[key]);
                       html_string += "<td>"+key+"</td>";
-                      html_string += "<td>"+json_data[key][x]['text']+"</td>";
                       html_string += "<td>"+json_data[key][x]['pattern']+"</td>";
+                      html_string += "<td>"+json_data[key][x]['text']+"</td>";
                       html_string += "<td>"+json_data[key][x]['filename']+"</td>";
                       html_string += "<td>"+json_data[key][x]['line']+"</td>";
                       if (json_data['algorithm']=="lcss"){
@@ -265,8 +265,8 @@ $(document).ready(function() {
                             <thead>
                             <tr>
                             <th>Line No</th>
-                            <th>Text</th>
                             <th>Pattern</th>
+                            <th>Text</th>
                             <th>Corpus File name</th>
                             <th>Line in corpus</th>
                             <th>Positions/Sequence</th>
