@@ -4,6 +4,7 @@ from string_algos import KMP
 from string_algos import LCSS
 from string_algos import BoyerMore
 from timeit import default_timer as timer
+import pdb
 
 def plagiot(post_obj):
     #print "inside plag_check"
@@ -55,12 +56,22 @@ def plagarism_check2(corpus,algo,pfile):
     # obj {line : [ {filename , line no , positions , text , pattern } , ... }
     p_fd = open("./uploads/"+pfile)
     p_counter = 1
+    #pdb.set_trace()
     for p_line in p_fd:
-        obj[p_counter] = []
+	p_line=p_line.rstrip("\r\n")       
+	p_line=p_line.lstrip("\xef\xbb\xbf")
+	if p_line == "":
+	    continue	 
+	obj[p_counter] = []
         for key in corpus:
+	    #print "./uploads/"+corpus[key]
             t_file = open("./uploads/"+corpus[key])
             t_counter = 1
             for t_line in t_file:
+		t_line=t_line.rstrip("\r\n")
+		t_line=t_line.lstrip("\xef\xbb\xbf")
+		if t_line == "":
+			continue
                 algo_obj = get_algo(algo,t_line,p_line)
                 o_obj = algo_obj.search_pattern()
                 if len(o_obj["positions"]) > 0 or len(o_obj["sequence"]) > 0:
@@ -80,3 +91,6 @@ def get_algo(p_algo,text,pattern):
         return  LCSS.LCSS(text,pattern) 
     elif p_algo == 'bm':
         return BoyerMore.BoyerMore(text,pattern) 
+
+#post_obj = {u'corpus_files': {u'0': u'TheChildrenOfForest.txt'}, u'algorithm': u'lcss', u'pattern_files': u'TheChild_10Line_Pattern..txt'}
+#print plagiot(post_obj)
