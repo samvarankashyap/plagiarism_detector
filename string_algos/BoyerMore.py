@@ -13,14 +13,15 @@ class BoyerMore:
       q=m
       badMTable= self.generateBadMatchTab(pattern)
       while((i+q-1)<n):
+	  val=i+q-1
           while(pattern[q-1]==text[i+q-1] and q>0):
               q=q-1
           if(q<=0):
               hits.append(i)
               i=i+1
           elif(pattern[q-1]!=text[i+q-1]):
-              if(badMTable.has_key(text[i+q-1])):
-                  i=i+badMTable[text[i+q-1]]
+              if(badMTable.has_key(text[val])):
+                  i=i+badMTable[text[val]]
               else:
                   i=i+m
           q=m

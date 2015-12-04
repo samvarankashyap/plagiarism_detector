@@ -1,7 +1,7 @@
-pattern = "tooth"
+pattern = "abcebc"
 text = "toothtrutoohsthardtothbrushtoothtoothes"
 text = "abcdefgfhijlmnom"
-text = "tiitottoothotttottotooth"
+text = "ebaabcebcab"
 def get_bad_match_table(text):
     bad_match = {}
     length = len(text)
