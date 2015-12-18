@@ -4,15 +4,12 @@ from string_algos import KMP
 from string_algos import LCSS
 from string_algos import BoyerMore
 from timeit import default_timer as timer
-import pdb
 
+#function for routing the request towards the algorithm
 def plagiot(post_obj):
-    #print "inside plag_check"
     c_files = post_obj['corpus_files']
     algo = post_obj['algorithm']
     p_file = post_obj['pattern_files']
-    #print post_obj
-    #output_obj = plagarism_check(c_files,algo,p_file)
     start_time = timer()
     output_obj = plagarism_check2(c_files,algo,p_file)
     end_time = timer()
@@ -20,6 +17,7 @@ def plagiot(post_obj):
     output_obj['algorithm'] = algo
     return output_obj
 
+#runs the pattern check on the given post object
 def pattern_check(post_obj):
     output_obj= post_obj
     p_text = post_obj['patterntext']
@@ -34,29 +32,13 @@ def pattern_check(post_obj):
     output_obj['patterntext']=p_text
     output_obj['algorithm']=p_algo
     output_obj['actualtext']=a_text
-    #print output_obj
     return output_obj
 
-def plagarism_check(corpus,algo,pfile):
-    obj = {}
-    p_fd = open("./uploads/"+pfile)
-    c = 1
-    for key in corpus:
-        f = open("./uploads/"+corpus[key])
-        totaltext = f.read()
-        for line in p_fd:
-            algo_obj = get_algo(algo,totaltext,line)
-            o_obj = algo_obj.search_pattern()
-            obj[c]=o_obj
-            c = c+1
-    return obj
-
+#runs the plagiarism check
 def plagarism_check2(corpus,algo,pfile):
     obj = {}
-    # obj {line : [ {filename , line no , positions , text , pattern } , ... }
     p_fd = open("./uploads/"+pfile)
     p_counter = 1
-    #pdb.set_trace()
     for p_line in p_fd:
 	p_line=p_line.rstrip("\r\n")       
 	p_line=p_line.lstrip("\xef\xbb\xbf")
@@ -64,7 +46,6 @@ def plagarism_check2(corpus,algo,pfile):
 	    continue	 
 	obj[p_counter] = []
         for key in corpus:
-	    #print "./uploads/"+corpus[key]
             t_file = open("./uploads/"+corpus[key])
             t_counter = 1
             for t_line in t_file:
@@ -82,6 +63,7 @@ def plagarism_check2(corpus,algo,pfile):
         p_counter += 1    
     return obj
 
+#serves the algo according to the posted object
 def get_algo(p_algo,text,pattern):
     if p_algo == 'nss':
         return NaiveSearch.NaiveSearch(text,pattern)
@@ -92,5 +74,3 @@ def get_algo(p_algo,text,pattern):
     elif p_algo == 'bm':
         return BoyerMore.BoyerMore(text,pattern) 
 
-#post_obj = {u'corpus_files': {u'0': u'TheChildrenOfForest.txt'}, u'algorithm': u'lcss', u'pattern_files': u'TheChild_10Line_Pattern..txt'}
-#print plagiot(post_obj)
