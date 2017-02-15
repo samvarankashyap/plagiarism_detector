@@ -1,5 +1,9 @@
-# plagiarism_detector
-Contains simple implementations of string algorithms
-> Bootstrapped Flask application 
-#String algos
-folder contains the object oriented implementation of the algorithms
+# Plagio Plagiot : plagiarism_detector
+Contains web based interface implementating string algorithms
+# installation
+pip install flask 
+# Running 
+python index.py 
+
+# Output
+localhost:8088/
